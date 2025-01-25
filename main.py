@@ -47,4 +47,6 @@ def download():
         return f"An error occurred: {e}"
 
 if __name__ == "__main__":
-    app.run()
+    # Dynamically bind to the port Render assigns
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
