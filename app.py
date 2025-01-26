@@ -4,6 +4,10 @@ import os
 
 app = Flask(__name__)
 
+# Ensure the downloads directory exists
+if not os.path.exists('downloads'):
+    os.makedirs('downloads')
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -13,18 +17,13 @@ def download():
     url = request.form['url']
     format_type = request.form['format']
 
-    # Ensure the downloads directory exists
-    if not os.path.exists('downloads'):
-        os.makedirs('downloads')
-
-    # yt-dlp options
+    # yt-dlp options with file-based cookies
     options = {
         'format': 'bestaudio/best' if format_type == 'mp3' else 'bestvideo+bestaudio',
         'outtmpl': 'downloads/%(title)s.%(ext)s',
-        'cookiesfrombrowser': ('chrome',),  # Replace 'chrome' with your browser type
+        'cookies': 'youtube-cookies.txt',  # Use the pre-exported cookies file
     }
 
-    print("Cookies file exists:", os.path.exists('youtube-cookies.txt'))
     # Add postprocessor for MP3 conversion
     if format_type == 'mp3':
         options['postprocessors'] = [{
@@ -34,6 +33,10 @@ def download():
         }]
 
     try:
+        # Debugging: Ensure the cookies file exists
+        if not os.path.exists('youtube-cookies.txt'):
+            raise FileNotFoundError("Cookies file 'youtube-cookies.txt' not found. Ensure it's uploaded.")
+
         # Download the video
         with YoutubeDL(options) as ydl:
             info_dict = ydl.extract_info(url, download=True)
