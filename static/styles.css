@@ -1,49 +1,150 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #1d0202;
+/* General Reset */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1f1f2e, #0d0d1c);
+    color: #ffffff;
+    line-height: 1.6;
+    font-size: 16px;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
+/* Futuristic Container */
 .container {
+    max-width: 800px;
+    padding: 2rem;
+    background: linear-gradient(135deg, #1c1c28, #2a2a3d);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 255, 0.2);
+    border: 1px solid rgba(0, 255, 255, 0.3);
     text-align: center;
-    background: #fff;
-    padding: 20px 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: glow 3s infinite alternate;
 }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+/* Glow Effect */
+@keyframes glow {
+    0% {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 255, 0.2);
+    }
+    100% {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 255, 255, 0.5);
+    }
 }
 
-label {
+header h1 {
+    font-size: 2.5rem;
+    color: #00ffff;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #a8d0e6;
+}
+
+/* Form Styling */
+form {
+    margin-top: 2rem;
+}
+
+form label {
     display: block;
-    margin-top: 15px;
+    margin-bottom: 0.5rem;
     font-weight: bold;
+    color: #a8d0e6;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
-input, select, button {
+form input[type="text"],
+form select {
     width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ddd;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(0, 255, 255, 0.3);
     border-radius: 5px;
-    font-size: 16px;
+    background: rgba(28, 28, 40, 0.8);
+    color: #ffffff;
+    font-size: 1rem;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    outline: none;
 }
 
-button {
-    background-color: #007BFF;
-    color: white;
+form input[type="text"]:focus,
+form select:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+}
+
+form button {
+    background: linear-gradient(135deg, #00ffff, #0088ff);
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
     border: none;
+    border-radius: 5px;
+    font-size: 1rem;
     cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
+    text-shadow: 0 0 10px #ffffff;
 }
 
-button:hover {
-    background-color: #0056b3;
+form button:hover {
+    background: linear-gradient(135deg, #0088ff, #00ffff);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+}
+
+/* Features Section */
+.features {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(28, 28, 40, 0.8);
+    border-radius: 10px;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.features h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.features ul {
+    list-style: none;
+    padding: 0;
+}
+
+.features ul li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #a8d0e6;
+    display: flex;
+    align-items: center;
+}
+
+.features ul li::before {
+    content: \"\\25CF\";
+    color: #00ffff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* Footer */
+footer {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(28, 28, 40, 0.8);
+    border-radius: 8px;
+    color: #a8d0e6;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
 }
