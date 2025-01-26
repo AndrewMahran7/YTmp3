@@ -3,37 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Downloader</title>
+    <meta name="description" content="Convert YouTube videos to MP3 or MP4 quickly and easily with our free YouTube to MP3/MP4 converter. No signup required!">
+    <meta name="keywords" content="YouTube to MP3, YouTube to MP4, YouTube converter, MP3 downloader, MP4 downloader, online converter">
+    <meta name="author" content="mp3fromyt.com">
+    <title>YouTube to MP3 Converter - Free and Fast</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
+    <header>
         <h1>YouTube to MP3/MP4 Converter</h1>
-        <form action="/download" method="POST">
-            <label for="url">YouTube URL:</label>
-            <input type="text" id="url" name="url" placeholder="Enter YouTube link" required>
+        <p>Convert YouTube videos to MP3 or MP4 in seconds. Enjoy fast, free, and high-quality downloads!</p>
+    </header>
+
+    <main>
+        <section class="converter">
+            <h2>Convert YouTube to MP3 or MP4</h2>
+            <p>Use our tool to download your favorite YouTube videos as MP3 or MP4 files. Perfect for offline listening and watching!</p>
             
-            <label for="format">Select Format:</label>
-            <select id="format" name="format" required>
-                <option value="mp3">MP3</option>
-                <option value="mp4">MP4</option>
-            </select>
-            
-            <button type="submit">Download</button>
-        </form>
+            <form action="/download" method="POST">
+                <label for="url">Enter YouTube URL:</label>
+                <input type="text" id="url" name="url" placeholder="Paste YouTube video link here" required>
+                
+                <label for="format">Select Format:</label>
+                <select id="format" name="format" required>
+                    <option value="mp3">MP3</option>
+                    <option value="mp4">MP4</option>
+                </select>
+                
+                <button type="submit">Convert & Download</button>
+            </form>
+        </section>
+
+        <section class="features">
+            <h2>Why Use Our YouTube to MP3 Converter?</h2>
+            <ul>
+                <li>⚡ Fast and reliable conversions</li>
+                <li>🎵 High-quality MP3 and MP4 downloads</li>
+                <li>💻 Works on all devices (PC, mobile, tablet)</li>
+                <li>🔒 Safe and secure</li>
+                <li>✨ 100% free – no signup required</li>
+            </ul>
+        </section>
+
+        <section class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <article>
+                <h3>Is this YouTube to MP3 converter free?</h3>
+                <p>Yes! Our tool is completely free to use, with no hidden fees or subscriptions required.</p>
+            </article>
+            <article>
+                <h3>What formats are supported?</h3>
+                <p>We currently support MP3 for audio downloads and MP4 for video downloads.</p>
+            </article>
+            <article>
+                <h3>Are there any limits on downloads?</h3>
+                <p>No! You can use our tool as much as you want without limits.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 mp3fromyt.com - The Best YouTube to MP3/MP4 Converter</p>
+    </footer>
+
+    <div class="ads">
+        <!-- Google AdSense Code -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXX"
+             data-ad-slot="YYYYYYYYYYYY"
+             data-ad-format="auto"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 </body>
-<div class="ads">
-    <!-- Google AdSense Code -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-XXXXXXXXXXXXXX"
-         data-ad-slot="YYYYYYYYYYYY"
-         data-ad-format="auto"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-</div>
-
 </html>
