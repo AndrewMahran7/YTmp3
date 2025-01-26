@@ -21,8 +21,9 @@ def download():
     options = {
         'format': 'bestaudio/best' if format_type == 'mp3' else 'bestvideo+bestaudio',
         'outtmpl': 'downloads/%(title)s.%(ext)s',
-        'cookies': 'youtube-cookies.txt',  # Use cookies file for authentication
+        'cookiesfrombrowser': ('chrome',),  # Replace 'chrome' with your browser type
     }
+
     print("Cookies file exists:", os.path.exists('youtube-cookies.txt'))
     # Add postprocessor for MP3 conversion
     if format_type == 'mp3':
