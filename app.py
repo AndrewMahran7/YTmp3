@@ -4,10 +4,6 @@ import os
 
 app = Flask(__name__)
 
-# Ensure the downloads directory exists
-if not os.path.exists('downloads'):
-    os.makedirs('downloads')
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -17,11 +13,15 @@ def download():
     url = request.form['url']
     format_type = request.form['format']
 
+    # Ensure the downloads directory exists
+    if not os.path.exists('downloads'):
+        os.makedirs('downloads')
+
     # yt-dlp options
     options = {
         'format': 'bestaudio/best' if format_type == 'mp3' else 'bestvideo+bestaudio',
         'outtmpl': 'downloads/%(title)s.%(ext)s',
-        'cookies': 'youtube-cookies.txt',  # Ensure this file is exported and in the same directory
+        'cookies': 'youtube-cookies.txt',  # Use cookies file for authentication
     }
 
     # Add postprocessor for MP3 conversion
