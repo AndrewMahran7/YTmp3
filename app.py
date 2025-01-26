@@ -23,6 +23,7 @@ def download():
         'outtmpl': 'downloads/%(title)s.%(ext)s',
         'cookies': 'youtube-cookies.txt',  # Use the pre-exported cookies file
     }
+    print("Cookies file exists:", os.path.exists('youtube-cookies.txt'))
 
     # Add postprocessor for MP3 conversion
     if format_type == 'mp3':
