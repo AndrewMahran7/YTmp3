@@ -1,1 +1,2 @@
 python-3.10
+chmod 644 youtube-cookies.txt
