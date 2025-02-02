@@ -44,7 +44,7 @@ def download():
             shutil.copy('static/youtube-cookies.txt', 'youtube-cookies.txt')  # Backup location
 
         else:
-            raise FileExistsError("Cookies are in the file")
+            print("Cookies are in the file")
         # Download the video
         with YoutubeDL(options) as ydl:
             info_dict = ydl.extract_info(url, download=True)
