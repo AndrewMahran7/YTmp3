@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, send_file
 from yt_dlp import YoutubeDL
 import os
+import shutil
 
 app = Flask(__name__)
 
@@ -17,13 +18,17 @@ def download():
     url = request.form['url']
     format_type = request.form['format']
 
-    # yt-dlp options with file-based cookies
     options = {
-        'format': 'bestaudio/best' if format_type == 'mp3' else 'bestvideo+bestaudio',
+        'format': 'bestaudio/best',
         'outtmpl': 'downloads/%(title)s.%(ext)s',
-        'cookies': 'youtube-cookies.txt',  # Use the pre-exported cookies file
+        'cookies': os.path.join(os.getcwd(), 'youtube-cookies.txt'),  # Use absolute path
     }
-    print("Cookies file exists:", os.path.exists('youtube-cookies.txt'))
+
+    # Debugging: Print path to check if file exists
+    print("Checking cookies file on Render:")
+    print("File exists:", os.path.exists(options['cookies']))
+    print("Absolute path:", options['cookies'])
+
 
     # Add postprocessor for MP3 conversion
     if format_type == 'mp3':
@@ -36,8 +41,10 @@ def download():
     try:
         # Debugging: Ensure the cookies file exists
         if not os.path.exists('youtube-cookies.txt'):
-            raise FileNotFoundError("Cookies file 'youtube-cookies.txt' not found. Ensure it's uploaded.")
+            shutil.copy('static/youtube-cookies.txt', 'youtube-cookies.txt')  # Backup location
 
+        else:
+            raise FileExistsError("Cookies are in the file")
         # Download the video
         with YoutubeDL(options) as ydl:
             info_dict = ydl.extract_info(url, download=True)
