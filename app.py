@@ -1,10 +1,10 @@
+import os
 from flask import Flask, request, render_template, send_file
 from yt_dlp import YoutubeDL
-import os
 
 app = Flask(__name__)
 
-# Ensure the downloads directory exists
+# Ensure downloads folder exists
 if not os.path.exists('downloads'):
     os.makedirs('downloads')
 
@@ -17,21 +17,18 @@ def download():
     url = request.form['url']
     format_type = request.form['format']
 
-    # Get the absolute path to the cookies file
-    cookies_path = os.path.abspath('youtube-cookies.txt')
+    # Set proxy
+    PROXY = "http://23.82.137.159:80"  # Replace with a working proxy
 
-    # Debugging: Check if the file exists
-    print(f"Checking cookies file at: {cookies_path}")
-    print("File exists:", os.path.exists(cookies_path))
-
-    # yt-dlp options with cookies
+    # yt-dlp options with proxy and cookies
     options = {
         'format': 'bestaudio/best' if format_type == 'mp3' else 'bestvideo+bestaudio',
         'outtmpl': 'downloads/%(title)s.%(ext)s',
-        'cookies': cookies_path,  # Use absolute path
+        'cookies': os.path.abspath('youtube-cookies.txt'),  # Ensure absolute path
+        'proxy': PROXY,  # Use proxy for requests
     }
 
-    # Add postprocessor for MP3 conversion
+    # Add MP3 conversion if needed
     if format_type == 'mp3':
         options['postprocessors'] = [{
             'key': 'FFmpegExtractAudio',
@@ -40,11 +37,11 @@ def download():
         }]
 
     try:
-        # Check if cookies file exists before downloading
-        if not os.path.exists(cookies_path):
-            raise FileNotFoundError("Cookies file not found. Upload it to Render.")
+        # Debugging: Check if cookies file exists
+        print(f"Checking cookies file at: {options['cookies']}")
+        print("File exists:", os.path.exists(options['cookies']))
 
-        # Download the video
+        # Download video using yt-dlp
         with YoutubeDL(options) as ydl:
             info_dict = ydl.extract_info(url, download=True)
             filename = ydl.prepare_filename(info_dict)
