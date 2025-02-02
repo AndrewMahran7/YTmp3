@@ -18,7 +18,7 @@ def download():
     format_type = request.form['format']
 
     # Set proxy
-    PROXY = "http://23.82.137.159:80"  # Replace with a working proxy
+    PROXY = "http://167.71.48.245:8080"  # Replace with a working proxy
 
     # yt-dlp options with proxy and cookies
     options = {
