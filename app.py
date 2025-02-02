@@ -1,7 +1,6 @@
 from flask import Flask, request, render_template, send_file
 from yt_dlp import YoutubeDL
 import os
-import shutil
 
 app = Flask(__name__)
 
@@ -18,17 +17,19 @@ def download():
     url = request.form['url']
     format_type = request.form['format']
 
+    # Get the absolute path to the cookies file
+    cookies_path = os.path.abspath('youtube-cookies.txt')
+
+    # Debugging: Check if the file exists
+    print(f"Checking cookies file at: {cookies_path}")
+    print("File exists:", os.path.exists(cookies_path))
+
+    # yt-dlp options with cookies
     options = {
-        'format': 'bestaudio/best',
+        'format': 'bestaudio/best' if format_type == 'mp3' else 'bestvideo+bestaudio',
         'outtmpl': 'downloads/%(title)s.%(ext)s',
-        'cookies': os.path.join(os.getcwd(), 'youtube-cookies.txt'),  # Use absolute path
+        'cookies': cookies_path,  # Use absolute path
     }
-
-    # Debugging: Print path to check if file exists
-    print("Checking cookies file on Render:")
-    print("File exists:", os.path.exists(options['cookies']))
-    print("Absolute path:", options['cookies'])
-
 
     # Add postprocessor for MP3 conversion
     if format_type == 'mp3':
@@ -39,12 +40,10 @@ def download():
         }]
 
     try:
-        # Debugging: Ensure the cookies file exists
-        if not os.path.exists('youtube-cookies.txt'):
-            shutil.copy('static/youtube-cookies.txt', 'youtube-cookies.txt')  # Backup location
+        # Check if cookies file exists before downloading
+        if not os.path.exists(cookies_path):
+            raise FileNotFoundError("Cookies file not found. Upload it to Render.")
 
-        else:
-            print("Cookies are in the file")
         # Download the video
         with YoutubeDL(options) as ydl:
             info_dict = ydl.extract_info(url, download=True)
@@ -60,6 +59,5 @@ def download():
         return f"An error occurred: {e}"
 
 if __name__ == "__main__":
-    # Dynamically bind to the port Render assigns
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
